@@ -1,0 +1,115 @@
+---
+title: 'Class5: Data Visualization with GGPLOT'
+author: "Ashley Vang"
+date: "10/11/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+#Our first ggplot
+
+To use the ggplot2 package I first need to have it installed on my computer. 
+
+To install any package we use the 'install.packages()' command 
+
+Now can I use it? NO! first we need to call 'library(ggplot2)' 
+
+```{r}
+library(ggplot2)
+ggplot()
+```
+
+```{r}
+mpg
+```
+
+Our first plot of displ vs hwy 
+All ggplot() graphs are made in the same way 
+
+data + aes + geoms 
+
+```{r}
+ggplot(mpg) + 
+  aes(x=displ, y=hwy) + 
+  geom_point()
+```
+
+I can add more layers 
+
+```{r}
+ggplot(mpg) + 
+  aes(x=displ, y=hwy) + 
+  geom_point() +
+  geom_smooth(se = FALSE, method = lm)
+```
+
+# Plot of gene expression data 
+
+First read the data from online. 
+
+```{r}
+url <- "https://bioboot.github.io/bimm143_S20/class-material/up_down_expression.txt"
+genes <- read.delim(url)
+head(genes)
+```
+
+> Q. How many genes are in this dataset? 
+
+```{r}
+nrow(genes)
+```
+
+What are the colnames?
+```{r}
+colnames(genes)
+```
+
+A first version plot of this data Condition1 vs Condition2
+```{r}
+ggplot(genes) +
+  aes(x=Condition1, y=Condition2) + 
+  geom_point()
+```
+
+Let's add some color. To do this we can add another aes() mapping of color to the 'State' column in our data. 
+
+```{r}
+ggplot(genes) +
+  aes(x=Condition1, y=Condition2, col=State) + 
+  geom_point() 
+```
+
+> Q. How many genes are up regulated and down regulated. 
+
+```{r}
+head(genes)
+```
+
+To get at just the State column 
+```{r}
+table (genes$State)
+```
+
+```{r}
+p <- ggplot(genes) + 
+    aes(x=Condition1, y=Condition2, col=State) +
+    geom_point()
+```
+
+We can add more layers 
+```{r}
+p +scale_color_manual(values = (c ("blue", "gray", "red"))) +
+  labs(title="Gene Expression",
+   x= "No drug", y="Drug",
+   caption= "Made by me")
+```
+
+Applying to geom_point applies it to the entire plot, aes is specific to the data set 
+```{r}
+ ggplot(genes) + 
+    aes(x=Condition1, y=Condition2, col=State) +
+    geom_point(alpha=0.3)
+```
+p
+
