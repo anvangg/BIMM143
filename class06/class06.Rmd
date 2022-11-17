@@ -1,0 +1,182 @@
+---
+title: "class06Rfunctions"
+author: "Ashley Vang"
+date: "10/13/2022"
+output:
+  html_document: default
+  pdf_document: default
+  toc: true 
+---
+
+#Function basics 
+
+All functions in R consist of at least 3 things: 
+
+-A **name** (we can pick this but it must start with a character)
+-Input **arguments** (there can be multiple comma separated inputs)
+-The **body **(where work actually happens)
+
+
+```{r}
+# Example input vectors to start with
+student1 <- c(100, 100, 100, 100, 100, 100, 100, 90)
+student2 <- c(100, NA, 90, 90, 90, 90, 97, 80)
+student3 <- c(90, NA, NA, NA, NA, NA, NA, NA)
+```
+
+
+I can start by using the 'mean()' function to calculate an average. 
+
+```{r}
+mean(student1)
+```
+
+I found the 'min()' function to find the minimum value in a vector.
+
+```{r}
+min(student1)
+```
+
+Looking at the "See Also" section of the 'min()' help page I found out about 'which.min()' 
+
+```{r}
+which.min(student1)
+```
+
+```{r}
+student1
+```
+
+```{r}
+student1[1:7]
+```
+
+I can get the same vector without the 8th element with the minus index trick...
+
+```{r}
+student1[-8]
+```
+
+
+So I will combine the output of 'which.min()' with the minus index trick to get the student scores without the lowest value. 
+
+```{r}
+mean(student1[-which.min(student1)])
+```
+
+Hmm... For student2 this gives NA 
+```{r}
+mean(student2[-which.min(student2)])
+```
+
+I see there is an 'na.rm=FALSE' by default argument to the 'mean()' function. Will this help us? 
+
+```{r}
+mean(student2[-which.min(student2)], na.rm=TRUE)
+```
+
+```{r}
+mean(student3[-which.min(student3)], na.rm=TRUE)
+```
+
+We need another way...
+
+How about we replace all NA (missing values) with zero. 
+
+```{r}
+student3
+is.na(student3)
+```
+
+```{r}
+student3 [is.na(student3)] <- 0
+student3
+mean(student3[-which.min(student3)])
+```
+
+All this copy paste is silly and dangerous- time to write a function. 
+
+```{r}
+x<-student3
+x [is.na(x)] <- 0
+mean(x [-which.min(x)])
+```
+
+I now have my working snippet of code that I have simplified to work with any student 'x'. 
+
+```{r}
+x [is.na(x)] <- 0
+mean(x [-which.min(x)])
+```
+
+## Function 
+Now turn into a function:
+
+```{r}
+grade <- function(x){
+  x [is.na(x)] <- 0
+  mean(x [-which.min(x)])
+}
+```
+
+```{r}
+grade(student1)
+```
+
+## Q2
+> Q2. Using your grade() function and the supplied gradebook, Who is the top scoring student
+overall in the gradebook?
+
+```{r}
+url <-"https://tinyurl.com/gradeinput"
+gradebook <-read.csv(url, row.names=1)
+```
+
+Have a look at the first 6 rows...
+
+```{r}
+head(gradebook)
+```
+
+Time to learn about the 'apply()' function. 
+```{r}
+results <-apply(gradebook,1,grade)
+```
+
+Which student did the best overall?
+```{r}
+which.max(results)
+```
+```{r}
+results[which.max(results)]
+```
+
+## Q3
+> Q3 From your analysis of the gradebook, which homework was toughest on students (i.e. obtained
+the lowest scores overall?
+
+```{r}
+which.min(apply(gradebook, 2, sum, na.rm=TRUE))
+```
+
+## Q4
+>Q4 From your analysis of the gradebook, which homework was most
+predictive of overall score (i.e. highest correlation with average grade score)? 
+
+```{r}
+mask <- gradebook
+mask [is.na(mask)] <- 0
+
+cor(mask$hw5, results)
+```
+
+```{r}
+cor(mask$hw1, results)
+```
+
+
+Or use apply...
+```{r}
+apply(mask, 2,cor, y=results)
+```
+

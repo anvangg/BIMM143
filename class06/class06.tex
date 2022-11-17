@@ -1,0 +1,471 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={class06Rfunctions},
+  pdfauthor={Ashley Vang},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{class06Rfunctions}
+\author{Ashley Vang}
+\date{10/13/2022}
+
+\begin{document}
+\maketitle
+
+\#Function basics
+
+All functions in R consist of at least 3 things:
+
+-A \textbf{name} (we can pick this but it must start with a character)
+-Input \textbf{arguments} (there can be multiple comma separated inputs)
+-The \textbf{body }(where work actually happens)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Example input vectors to start with}
+\NormalTok{student1 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{90}\NormalTok{)}
+\NormalTok{student2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{100}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{97}\NormalTok{, }\DecValTok{80}\NormalTok{)}
+\NormalTok{student3 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+I can start by using the `mean()' function to calculate an average.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(student1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 98.75
+\end{verbatim}
+
+I found the `min()' function to find the minimum value in a vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{min}\NormalTok{(student1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 90
+\end{verbatim}
+
+Looking at the ``See Also'' section of the `min()' help page I found out
+about `which.min()'
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{which.min}\NormalTok{(student1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{student1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100 100 100 100 100 100 100  90
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{student1[}\DecValTok{1}\OperatorTok{:}\DecValTok{7}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100 100 100 100 100 100 100
+\end{verbatim}
+
+I can get the same vector without the 8th element with the minus index
+trick\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{student1[}\OperatorTok{-}\DecValTok{8}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100 100 100 100 100 100 100
+\end{verbatim}
+
+So I will combine the output of `which.min()' with the minus index trick
+to get the student scores without the lowest value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(student1[}\OperatorTok{-}\KeywordTok{which.min}\NormalTok{(student1)])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100
+\end{verbatim}
+
+Hmm\ldots{} For student2 this gives NA
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(student2[}\OperatorTok{-}\KeywordTok{which.min}\NormalTok{(student2)])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+I see there is an `na.rm=FALSE' by default argument to the `mean()'
+function. Will this help us?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(student2[}\OperatorTok{-}\KeywordTok{which.min}\NormalTok{(student2)], }\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 92.83333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(student3[}\OperatorTok{-}\KeywordTok{which.min}\NormalTok{(student3)], }\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NaN
+\end{verbatim}
+
+We need another way\ldots{}
+
+How about we replace all NA (missing values) with zero.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{student3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 90 NA NA NA NA NA NA NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.na}\NormalTok{(student3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{student3 [}\KeywordTok{is.na}\NormalTok{(student3)] <-}\StringTok{ }\DecValTok{0}
+\NormalTok{student3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 90  0  0  0  0  0  0  0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(student3[}\OperatorTok{-}\KeywordTok{which.min}\NormalTok{(student3)])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12.85714
+\end{verbatim}
+
+All this copy paste is silly and dangerous- time to write a function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x<-student3}
+\NormalTok{x [}\KeywordTok{is.na}\NormalTok{(x)] <-}\StringTok{ }\DecValTok{0}
+\KeywordTok{mean}\NormalTok{(x [}\OperatorTok{-}\KeywordTok{which.min}\NormalTok{(x)])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12.85714
+\end{verbatim}
+
+I now have my working snippet of code that I have simplified to work
+with any student `x'.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x [}\KeywordTok{is.na}\NormalTok{(x)] <-}\StringTok{ }\DecValTok{0}
+\KeywordTok{mean}\NormalTok{(x [}\OperatorTok{-}\KeywordTok{which.min}\NormalTok{(x)])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12.85714
+\end{verbatim}
+
+\hypertarget{function-basics}{%
+\subsection{Function basics}\label{function-basics}}
+
+Now turn into a function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{grade <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+\NormalTok{  x [}\KeywordTok{is.na}\NormalTok{(x)] <-}\StringTok{ }\DecValTok{0}
+  \KeywordTok{mean}\NormalTok{(x [}\OperatorTok{-}\KeywordTok{which.min}\NormalTok{(x)])}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{grade}\NormalTok{(student1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100
+\end{verbatim}
+
+\hypertarget{q2}{%
+\subsection{Q2}\label{q2}}
+
+\begin{quote}
+Q2. Using your grade() function and the supplied gradebook, Who is the
+top scoring student overall in the gradebook?
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{url <-}\StringTok{"https://tinyurl.com/gradeinput"}
+\NormalTok{gradebook <-}\KeywordTok{read.csv}\NormalTok{(url, }\DataTypeTok{row.names=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Have a look at the first 6 rows\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(gradebook)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           hw1 hw2 hw3 hw4 hw5
+## student-1 100  73 100  88  79
+## student-2  85  64  78  89  78
+## student-3  83  69  77 100  77
+## student-4  88  NA  73 100  76
+## student-5  88 100  75  86  79
+## student-6  89  78 100  89  77
+\end{verbatim}
+
+Time to learn about the `apply()' function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{results <-}\KeywordTok{apply}\NormalTok{(gradebook,}\DecValTok{1}\NormalTok{,grade)}
+\end{Highlighting}
+\end{Shaded}
+
+Which student did the best overall?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{which.max}\NormalTok{(results)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## student-18 
+##         18
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{results[}\KeywordTok{which.max}\NormalTok{(results)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## student-18 
+##       94.5
+\end{verbatim}
+
+\hypertarget{q3}{%
+\subsection{Q3}\label{q3}}
+
+\begin{quote}
+Q3 From your analysis of the gradebook, which homework was toughest on
+students (i.e.~obtained the lowest scores overall?
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{which.min}\NormalTok{(}\KeywordTok{apply}\NormalTok{(gradebook, }\DecValTok{2}\NormalTok{, sum, }\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## hw2 
+##   2
+\end{verbatim}
+
+\hypertarget{q4}{%
+\subsection{Q4}\label{q4}}
+
+\begin{quote}
+Q4 From your analysis of the gradebook, which homework was most
+predictive of overall score (i.e.~highest correlation with average grade
+score)?
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mask <-}\StringTok{ }\NormalTok{gradebook}
+\NormalTok{mask [}\KeywordTok{is.na}\NormalTok{(mask)] <-}\StringTok{ }\DecValTok{0}
+
+\KeywordTok{cor}\NormalTok{(mask}\OperatorTok{$}\NormalTok{hw5, results)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6325982
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(mask}\OperatorTok{$}\NormalTok{hw1, results)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4250204
+\end{verbatim}
+
+Or use apply\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{apply}\NormalTok{(mask, }\DecValTok{2}\NormalTok{,cor, }\DataTypeTok{y=}\NormalTok{results)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       hw1       hw2       hw3       hw4       hw5 
+## 0.4250204 0.1767780 0.3042561 0.3810884 0.6325982
+\end{verbatim}
+
+\end{document}

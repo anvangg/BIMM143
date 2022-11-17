@@ -1,0 +1,95 @@
+---
+title: "Homework 6"
+author: "Ashley Vang"
+date: "10/16/2022"
+output: html_document
+---
+
+#Original Code
+# Can you improve this analysis code?
+library(bio3d)
+
+s1 <- read.pdb("4AKE")  # kinase with drug
+s2 <- read.pdb("1AKE")  # kinase no drug
+s3 <- read.pdb("1E4Y")  # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+
+
+
+We can see some errors in the code which we can fix. 
+Change the s1 from the s3.b code into s3. 
+```{r}
+library(bio3d)
+s1 <- read.pdb("4AKE")  # kinase with drug
+s2 <- read.pdb("1AKE")  # kinase no drug
+s3 <- read.pdb("1E4Y")  # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s3, chain="A", elety="CA")
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+```
+
+Notice how the code has elements that are specific and can be turned into a singular function such as read.pdb, trim.pdb, s.chainA$atom$b, plotb3 
+
+Set repeats as specific names so we can input it easier into the functions. 
+Set x <- to any protein in the pdb 
+```{r}
+x<- "specific protein"
+x.chainA <- trim.pdb(s1, chain="A", elety="CA")
+
+c<- x.chainA 
+x.b <- c$atom$b 
+
+
+plotb3(x.b,sse=x.chainA, typ="l", ylab="Bfactor")
+
+```
+
+
+Then input into a function using the three elements of a written function. 
+
+Refresher:All functions in R consist of at least 3 things: 
+
+-A **name** (we can pick this but it must start with a character)
+-Input **arguments** (there can be multiple comma separated inputs)
+-The **body **(where work actually happens)
+
+```{r}
+protein <- function(x) { x.chainA <- trim.pdb (x, chain="A", elety="CA")
+c<- x.chainA 
+x.b <- c$atom$b 
+
+plotb3(x.b,sse=x.chainA, typ="l", ylab="Bfactor")}
+```
+
+Test to see if it works...
+```{r}
+protein(s1)
+```
+
+```{r}
+protein(s2)
+```
+
+```{r}
+protein(s3)
+```
+
+Function protein encodes a code that takes any protein from the pdb and creates a plot of the ratio of Bfactor to residue. 
+To use the function just write protein() and insert your protein of interest. 
+
+
+
